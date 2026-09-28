@@ -1,403 +1,552 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b7a53">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b7a53">
+<title>KongoPay</title>
 
-  <title>KongoPay</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+body {
+  background: #f4f7f6;
+  color: #17221e;
+  min-height: 100vh;
+}
 
-    body {
-      background: #f4f7f6;
-      color: #17221e;
-      min-height: 100vh;
-    }
+button,
+input {
+  font: inherit;
+}
 
-    .app {
-      max-width: 480px;
-      margin: auto;
-      min-height: 100vh;
-      background: #f4f7f6;
-      padding-bottom: 85px;
-    }
+button {
+  cursor: pointer;
+}
 
-    /* HEADER */
-    header {
-      background: #0b7a53;
-      color: white;
-      padding: 22px 20px 28px;
-      border-radius: 0 0 25px 25px;
-    }
+.hidden {
+  display: none !important;
+}
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
+/* AUTHENTIFICATION */
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 23px;
-      font-weight: bold;
-    }
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(160deg, #0b7a53, #07563c);
+}
 
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: white;
-      color: #0b7a53;
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-    }
+.auth-box {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 25px;
+  padding: 30px 22px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.2);
+}
 
-    .notification {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.15);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 20px;
-    }
+.auth-logo {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 15px;
+  border-radius: 20px;
+  background: #0b7a53;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  font-weight: bold;
+}
 
-    .welcome {
-      font-size: 14px;
-      opacity: .85;
-      margin-bottom: 6px;
-    }
+.auth-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
 
-    .balance-title {
-      font-size: 14px;
-      opacity: .85;
-    }
+.auth-subtitle {
+  text-align: center;
+  color: #7b8580;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
 
-    .balance {
-      font-size: 34px;
-      font-weight: bold;
-      margin-top: 5px;
-    }
+.form-group {
+  margin-bottom: 17px;
+}
 
-    .currency {
-      font-size: 16px;
-      font-weight: normal;
-    }
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
 
-    /* QUICK ACTIONS */
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      padding: 20px 15px;
-    }
+input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #d9e1dd;
+  border-radius: 13px;
+  outline: none;
+  background: #fff;
+}
 
-    .action {
-      background: white;
-      border-radius: 16px;
-      padding: 14px 5px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-      cursor: pointer;
-      transition: .2s;
-    }
+input:focus {
+  border-color: #0b7a53;
+}
 
-    .action:active {
-      transform: scale(.95);
-    }
+.pin-input {
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 8px;
+}
 
-    .action-icon {
-      font-size: 25px;
-      margin-bottom: 7px;
-    }
+.main-button {
+  width: 100%;
+  border: none;
+  background: #0b7a53;
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: bold;
+  margin-top: 5px;
+}
 
-    .action span {
-      display: block;
-      font-size: 12px;
-      font-weight: bold;
-    }
+.main-button:active {
+  transform: scale(.98);
+}
 
-    /* SECTIONS */
-    .section {
-      padding: 0 18px;
-      margin-top: 8px;
-    }
+.secondary-button {
+  width: 100%;
+  border: 1px solid #0b7a53;
+  background: white;
+  color: #0b7a53;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: bold;
+  margin-top: 12px;
+}
 
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+.auth-error {
+  background: #ffe9e9;
+  color: #b83232;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 15px;
+  display: none;
+}
 
-    .section-title h2 {
-      font-size: 18px;
-    }
+/* APPLICATION */
 
-    .section-title a {
-      color: #0b7a53;
-      font-size: 13px;
-      font-weight: bold;
-    }
+.app {
+  max-width: 480px;
+  margin: auto;
+  min-height: 100vh;
+  padding-bottom: 85px;
+}
 
-    /* CARD */
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.05);
-    }
+header,
+.page-header {
+  background: #0b7a53;
+  color: white;
+  padding: 22px 20px 28px;
+  border-radius: 0 0 25px 25px;
+}
 
-    .transaction {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
 
-    .transaction-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    .transaction-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
-      background: #e8f5ef;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: white;
+  color: #0b7a53;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .transaction-name {
-      font-weight: bold;
-      font-size: 14px;
-    }
+.notification {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .transaction-date {
-      color: #89928e;
-      font-size: 11px;
-      margin-top: 4px;
-    }
+.welcome {
+  font-size: 14px;
+  opacity: .85;
+}
 
-    .amount {
-      font-weight: bold;
-      font-size: 14px;
-    }
+.balance-title {
+  font-size: 13px;
+  opacity: .8;
+  margin-top: 5px;
+}
 
-    .positive {
-      color: #0b7a53;
-    }
+.balance {
+  font-size: 34px;
+  font-weight: bold;
+  margin-top: 4px;
+}
 
-    .negative {
-      color: #d14c4c;
-    }
+.currency {
+  font-size: 15px;
+  font-weight: normal;
+}
 
-    /* NAVIGATION */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 480px;
-      height: 75px;
-      background: white;
-      border-top: 1px solid #e6ebe8;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 10;
-    }
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  padding: 20px 15px;
+}
 
-    .nav-item {
-      text-align: center;
-      color: #8a938f;
-      font-size: 11px;
-      cursor: pointer;
-    }
+.action {
+  background: white;
+  border-radius: 16px;
+  padding: 13px 4px;
+  text-align: center;
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+}
 
-    .nav-item div {
-      font-size: 23px;
-      margin-bottom: 3px;
-    }
+.action-icon {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
 
-    .nav-item.active {
-      color: #0b7a53;
-      font-weight: bold;
-    }
+.action span {
+  font-size: 11px;
+  font-weight: bold;
+}
 
-    /* PAGES */
-    .page {
-      display: none;
-    }
+.section {
+  padding: 0 18px;
+  margin-top: 8px;
+}
 
-    .page.active {
-      display: block;
-    }
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
 
-    .page-header {
-      background: #0b7a53;
-      color: white;
-      padding: 25px 20px;
-      border-radius: 0 0 25px 25px;
-    }
+.section-title h2 {
+  font-size: 18px;
+}
 
-    .page-header h1 {
-      font-size: 24px;
-    }
+.section-title a {
+  color: #0b7a53;
+  font-size: 13px;
+  font-weight: bold;
+}
 
-    /* FORM */
-    .form-container {
-      padding: 20px;
-    }
+.card {
+  background: white;
+  border-radius: 17px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+}
 
-    .form-group {
-      margin-bottom: 18px;
-    }
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
-      font-weight: bold;
-    }
+.transaction-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
 
-    input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #dce3df;
-      border-radius: 13px;
-      font-size: 15px;
-      outline: none;
-      background: white;
-    }
+.transaction-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #e8f5ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    input:focus {
-      border-color: #0b7a53;
-    }
+.transaction-name {
+  font-weight: bold;
+  font-size: 13px;
+}
 
-    .main-button {
-      width: 100%;
-      border: none;
-      background: #0b7a53;
-      color: white;
-      padding: 16px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.transaction-date {
+  color: #89928e;
+  font-size: 11px;
+  margin-top: 4px;
+}
 
-    .main-button:active {
-      transform: scale(.98);
-    }
+.amount {
+  font-weight: bold;
+  font-size: 13px;
+}
 
-    /* MESSAGE */
-    .empty {
-      text-align: center;
-      padding: 40px 20px;
-      color: #89928e;
-    }
+.positive {
+  color: #0b7a53;
+}
 
-    .empty-icon {
-      font-size: 45px;
-      margin-bottom: 10px;
-    }
+.negative {
+  color: #d14c4c;
+}
 
-    /* TOAST */
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 95px;
-      transform: translateX(-50%) translateY(20px);
-      background: #17221e;
-      color: white;
-      padding: 13px 18px;
-      border-radius: 12px;
-      font-size: 13px;
-      opacity: 0;
-      pointer-events: none;
-      transition: .3s;
-      z-index: 100;
-      width: max-content;
-      max-width: 90%;
-    }
+.page {
+  display: none;
+}
 
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
+.page.active {
+  display: block;
+}
 
-    /* PROFILE */
-    .profile {
-      text-align: center;
-      padding: 25px 20px;
-    }
+.page-header h1 {
+  font-size: 23px;
+}
 
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #0b7a53;
-      color: white;
-      margin: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-weight: bold;
-    }
+.form-container {
+  padding: 20px;
+}
 
-    .profile h2 {
-      margin-top: 12px;
-    }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: 75px;
+  background: white;
+  border-top: 1px solid #e5ebe8;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 20;
+}
 
-    .profile p {
-      color: #89928e;
-      margin-top: 5px;
-      font-size: 14px;
-    }
-  </style>
+.nav-item {
+  text-align: center;
+  color: #89928e;
+  font-size: 10px;
+}
+
+.nav-item div {
+  font-size: 22px;
+  margin-bottom: 3px;
+}
+
+.nav-item.active {
+  color: #0b7a53;
+  font-weight: bold;
+}
+
+.profile {
+  text-align: center;
+  padding: 25px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #0b7a53;
+  color: white;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.profile h2 {
+  margin-top: 12px;
+}
+
+.profile p {
+  color: #89928e;
+  margin-top: 5px;
+}
+
+.logout {
+  color: #d14c4c;
+  font-weight: bold;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 95px;
+  transform: translateX(-50%) translateY(20px);
+  background: #17221e;
+  color: white;
+  padding: 13px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  z-index: 100;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+</style>
 </head>
 
 <body>
 
-<div class="app">
+<!-- CREATION DU COMPTE -->
+<div id="registerScreen" class="auth-screen hidden">
+  <div class="auth-box">
+
+    <div class="auth-logo">₭</div>
+
+    <h1 class="auth-title">KongoPay</h1>
+
+    <p class="auth-subtitle">
+      Crée ton compte
+    </p>
+
+    <div id="registerError" class="auth-error"></div>
+
+    <div class="form-group">
+      <label>Nom</label>
+      <input id="registerName" type="text"
+             placeholder="Ton nom">
+    </div>
+
+    <div class="form-group">
+      <label>Numéro de téléphone</label>
+      <input id="registerPhone" type="tel"
+             placeholder="+243..."
+             inputmode="tel">
+    </div>
+
+    <div class="form-group">
+      <label>Créer un PIN à 4 chiffres</label>
+      <input id="registerPin" class="pin-input"
+             type="password"
+             maxlength="4"
+             inputmode="numeric"
+             placeholder="••••">
+    </div>
+
+    <div class="form-group">
+      <label>Confirmer le PIN</label>
+      <input id="registerPinConfirm" class="pin-input"
+             type="password"
+             maxlength="4"
+             inputmode="numeric"
+             placeholder="••••">
+    </div>
+
+    <button class="main-button" onclick="register()">
+      Créer mon compte
+    </button>
+
+  </div>
+</div>
+
+
+<!-- CONNEXION -->
+<div id="loginScreen" class="auth-screen hidden">
+  <div class="auth-box">
+
+    <div class="auth-logo">₭</div>
+
+    <h1 class="auth-title">KongoPay</h1>
+
+    <p class="auth-subtitle">
+      Connecte-toi à ton portefeuille
+    </p>
+
+    <div id="loginError" class="auth-error"></div>
+
+    <div class="form-group">
+      <label>Numéro de téléphone</label>
+      <input id="loginPhone" type="tel"
+             placeholder="+243..."
+             inputmode="tel">
+    </div>
+
+    <div class="form-group">
+      <label>Code PIN</label>
+      <input id="loginPin" class="pin-input"
+             type="password"
+             maxlength="4"
+             inputmode="numeric"
+             placeholder="••••">
+    </div>
+
+    <button class="main-button" onclick="login()">
+      Se connecter
+    </button>
+
+    <button class="secondary-button" onclick="showRegister()">
+      Créer un nouveau compte
+    </button>
+
+  </div>
+</div>
+
+
+<!-- APPLICATION -->
+<div id="app" class="app hidden">
 
   <!-- ACCUEIL -->
   <div id="homePage" class="page active">
 
     <header>
+
       <div class="top">
+
         <div class="logo">
           <div class="logo-icon">₭</div>
           KongoPay
         </div>
 
-        <div class="notification" onclick="showToast('Aucune nouvelle notification')">
+        <div class="notification"
+             onclick="showToast('Aucune nouvelle notification')">
           🔔
         </div>
+
       </div>
 
       <div class="welcome">
-        Bonjour 👋
+        Bonjour <span id="userName">Utilisateur</span> 👋
       </div>
 
       <div class="balance-title">
@@ -406,11 +555,12 @@
 
       <div class="balance">
         <span id="balance">250 000</span>
-        <span class="currency"> CDF</span>
+        <span class="currency">CDF</span>
       </div>
+
     </header>
 
-    <!-- ACTIONS -->
+
     <div class="actions">
 
       <div class="action" onclick="showPage('sendPage')">
@@ -418,58 +568,37 @@
         <span>Envoyer</span>
       </div>
 
-      <div class="action" onclick="showToast('Fonction recevoir bientôt disponible')">
+      <div class="action"
+           onclick="showToast('Réception bientôt disponible')">
         <div class="action-icon">📥</div>
         <span>Recevoir</span>
       </div>
 
-      <div class="action" onclick="showToast('Fonction paiement bientôt disponible')">
+      <div class="action"
+           onclick="showToast('Paiement bientôt disponible')">
         <div class="action-icon">🛒</div>
         <span>Payer</span>
       </div>
 
-      <div class="action" onclick="showPage('walletPage')">
+      <div class="action"
+           onclick="showPage('walletPage')">
         <div class="action-icon">👛</div>
         <span>Wallet</span>
       </div>
 
     </div>
 
-    <!-- TRANSACTIONS -->
+
     <div class="section">
 
       <div class="section-title">
         <h2>Transactions récentes</h2>
-        <a onclick="showPage('historyPage')">Voir tout</a>
+        <a onclick="showPage('historyPage')">
+          Voir tout
+        </a>
       </div>
 
-      <div id="transactions">
-
-        <div class="card">
-          <div class="transaction">
-
-            <div class="transaction-left">
-              <div class="transaction-icon">📥</div>
-
-              <div>
-                <div class="transaction-name">
-                  Dépôt initial
-                </div>
-
-                <div class="transaction-date">
-                  Aujourd'hui
-                </div>
-              </div>
-            </div>
-
-            <div class="amount positive">
-              +250 000 CDF
-            </div>
-
-          </div>
-        </div>
-
-      </div>
+      <div id="transactions"></div>
 
     </div>
 
@@ -483,30 +612,38 @@
       <h1>👛 Mon portefeuille</h1>
     </div>
 
-    <div class="section" style="padding-top:20px;">
+    <div class="section" style="padding-top:20px">
 
       <div class="card">
+
         <div class="balance-title">
           Solde disponible
         </div>
 
-        <div class="balance" style="color:#0b7a53;">
-          <span id="walletBalance">250 000</span>
-          <span class="currency"> CDF</span>
+        <div class="balance"
+             style="color:#0b7a53">
+          <span id="walletBalance">
+            250 000
+          </span>
+          CDF
         </div>
+
       </div>
 
       <div class="card">
+
         <div class="transaction-name">
           Numéro KongoPay
         </div>
 
-        <div style="margin-top:8px;color:#89928e;">
-          +243 000 000 000
+        <div id="walletPhone"
+             style="margin-top:8px;color:#89928e">
         </div>
+
       </div>
 
-      <button class="main-button" onclick="showToast('Fonction de dépôt bientôt disponible')">
+      <button class="main-button"
+              onclick="showToast('Dépôt bientôt disponible')">
         + Ajouter de l'argent
       </button>
 
@@ -515,7 +652,7 @@
   </div>
 
 
-  <!-- ENVOYER -->
+  <!-- TRANSFERT -->
   <div id="sendPage" class="page">
 
     <div class="page-header">
@@ -525,46 +662,57 @@
     <div class="form-container">
 
       <div class="card">
-        <div style="font-size:13px;color:#89928e;">
+
+        <div class="balance-title">
           Solde disponible
         </div>
 
-        <div style="font-size:24px;font-weight:bold;color:#0b7a53;margin-top:5px;">
-          <span id="sendBalance">250 000</span> CDF
+        <div style="font-size:25px;
+                    font-weight:bold;
+                    color:#0b7a53;
+                    margin-top:5px">
+
+          <span id="sendBalance">
+            250 000
+          </span>
+          CDF
+
         </div>
+
       </div>
+
 
       <div class="form-group">
         <label>Numéro du destinataire</label>
 
-        <input
-          id="recipient"
-          type="tel"
-          placeholder="+243..."
-        >
+        <input id="recipient"
+               type="tel"
+               placeholder="+243..."
+               inputmode="tel">
       </div>
+
 
       <div class="form-group">
-        <label>Montant (CDF)</label>
+        <label>Montant en CDF</label>
 
-        <input
-          id="amount"
-          type="number"
-          placeholder="Ex : 10 000"
-        >
+        <input id="amount"
+               type="number"
+               placeholder="Ex : 50 000"
+               inputmode="numeric">
       </div>
+
 
       <div class="form-group">
-        <label>Message (facultatif)</label>
+        <label>Message facultatif</label>
 
-        <input
-          id="message"
-          type="text"
-          placeholder="Ex : Paiement..."
-        >
+        <input id="message"
+               type="text"
+               placeholder="Motif du transfert">
       </div>
 
-      <button class="main-button" onclick="sendMoney()">
+
+      <button class="main-button"
+              onclick="sendMoney()">
         Envoyer maintenant
       </button>
 
@@ -580,58 +728,37 @@
       <h1>📋 Historique</h1>
     </div>
 
-    <div class="section" style="padding-top:20px;">
+    <div class="section"
+         style="padding-top:20px">
 
-      <div id="historyList">
-
-        <div class="card">
-          <div class="transaction">
-
-            <div class="transaction-left">
-              <div class="transaction-icon">📥</div>
-
-              <div>
-                <div class="transaction-name">
-                  Dépôt initial
-                </div>
-
-                <div class="transaction-date">
-                  Aujourd'hui
-                </div>
-              </div>
-            </div>
-
-            <div class="amount positive">
-              +250 000 CDF
-            </div>
-
-          </div>
-        </div>
-
-      </div>
+      <div id="historyList"></div>
 
     </div>
 
   </div>
 
 
-  <!-- MESSAGERIE -->
+  <!-- MESSAGES -->
   <div id="messagePage" class="page">
 
     <div class="page-header">
       <h1>💬 Messagerie</h1>
     </div>
 
-    <div class="empty">
+    <div style="text-align:center;
+                padding:60px 20px;
+                color:#89928e">
 
-      <div class="empty-icon">
+      <div style="font-size:45px">
         💬
       </div>
 
-      <h3>Aucun message</h3>
+      <h3 style="margin-top:10px">
+        Aucun message
+      </h3>
 
-      <p style="margin-top:8px;">
-        Tes conversations KongoPay apparaîtront ici.
+      <p style="margin-top:8px">
+        Tes conversations apparaîtront ici.
       </p>
 
     </div>
@@ -648,26 +775,35 @@
 
     <div class="profile">
 
-      <div class="avatar">
+      <div class="avatar" id="avatar">
         K
       </div>
 
-      <h2>Utilisateur KongoPay</h2>
+      <h2 id="profileName">
+        Utilisateur
+      </h2>
 
-      <p>
-        +243 000 000 000
+      <p id="profilePhone">
+        +243...
       </p>
 
     </div>
 
     <div class="section">
 
-      <div class="card" onclick="showToast('Paramètres bientôt disponibles')">
+      <div class="card"
+           onclick="showToast('Paramètres bientôt disponibles')">
         ⚙️ &nbsp; Paramètres
       </div>
 
-      <div class="card" onclick="showToast('Centre d'aide bientôt disponible')">
+      <div class="card"
+           onclick="showToast('Centre d'aide bientôt disponible')">
         ❓ &nbsp; Centre d'aide
+      </div>
+
+      <div class="card logout"
+           onclick="logout()">
+        🚪 &nbsp; Se déconnecter
       </div>
 
     </div>
@@ -678,27 +814,32 @@
   <!-- NAVIGATION -->
   <div class="bottom-nav">
 
-    <div class="nav-item active" onclick="showPage('homePage', this)">
+    <div class="nav-item active"
+         onclick="showPage('homePage',this)">
       <div>🏠</div>
       Accueil
     </div>
 
-    <div class="nav-item" onclick="showPage('walletPage', this)">
+    <div class="nav-item"
+         onclick="showPage('walletPage',this)">
       <div>👛</div>
       Wallet
     </div>
 
-    <div class="nav-item" onclick="showPage('sendPage', this)">
+    <div class="nav-item"
+         onclick="showPage('sendPage',this)">
       <div>💸</div>
       Transfert
     </div>
 
-    <div class="nav-item" onclick="showPage('messagePage', this)">
+    <div class="nav-item"
+         onclick="showPage('messagePage',this)">
       <div>💬</div>
       Messages
     </div>
 
-    <div class="nav-item" onclick="showPage('profilePage', this)">
+    <div class="nav-item"
+         onclick="showPage('profilePage',this)">
       <div>👤</div>
       Profil
     </div>
@@ -708,183 +849,399 @@
 </div>
 
 
-<!-- NOTIFICATION -->
 <div id="toast" class="toast"></div>
 
 
 <script>
 
-  /* SOLDE INITIAL */
-  let balance = 250000;
+/* =========================
+   DONNÉES KONGOPAY
+========================= */
+
+let user = null;
+let balance = 250000;
+let transactions = [];
 
 
-  /* AFFICHER UNE PAGE */
-  function showPage(pageId, element) {
+/* =========================
+   STOCKAGE
+========================= */
 
-    const pages = document.querySelectorAll(".page");
+function saveData() {
 
-    pages.forEach(function(page) {
+  if (user) {
+    localStorage.setItem(
+      "kongopay_user",
+      JSON.stringify(user)
+    );
+  }
+
+  localStorage.setItem(
+    "kongopay_balance",
+    balance
+  );
+
+  localStorage.setItem(
+    "kongopay_transactions",
+    JSON.stringify(transactions)
+  );
+}
+
+
+function loadData() {
+
+  const savedUser =
+    localStorage.getItem("kongopay_user");
+
+  const savedBalance =
+    localStorage.getItem("kongopay_balance");
+
+  const savedTransactions =
+    localStorage.getItem("kongopay_transactions");
+
+  if (savedUser) {
+    user = JSON.parse(savedUser);
+  }
+
+  if (savedBalance !== null) {
+    balance = Number(savedBalance);
+  }
+
+  if (savedTransactions) {
+    transactions =
+      JSON.parse(savedTransactions);
+  }
+}
+
+
+/* =========================
+   HASH DU PIN
+========================= */
+
+async function hashPin(pin) {
+
+  const data =
+    new TextEncoder().encode(pin);
+
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      data
+    );
+
+  return Array.from(
+    new Uint8Array(hash)
+  )
+  .map(
+    byte =>
+      byte.toString(16).padStart(2,"0")
+  )
+  .join("");
+}
+
+
+/* =========================
+   ÉCRANS
+========================= */
+
+function hideAllAuth() {
+
+  document
+    .getElementById("registerScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+}
+
+
+function showRegister() {
+
+  hideAllAuth();
+
+  document
+    .getElementById("registerScreen")
+    .classList.remove("hidden");
+}
+
+
+function showLogin() {
+
+  hideAllAuth();
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+}
+
+
+/* =========================
+   INSCRIPTION
+========================= */
+
+async function register() {
+
+  const name =
+    document
+      .getElementById("registerName")
+      .value.trim();
+
+  const phone =
+    document
+      .getElementById("registerPhone")
+      .value.trim();
+
+  const pin =
+    document
+      .getElementById("registerPin")
+      .value.trim();
+
+  const confirmPin =
+    document
+      .getElementById("registerPinConfirm")
+      .value.trim();
+
+  const error =
+    document.getElementById("registerError");
+
+
+  error.style.display = "none";
+
+
+  if (!name || !phone) {
+
+    error.textContent =
+      "Entre ton nom et ton numéro.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  if (!/^\d{4}$/.test(pin)) {
+
+    error.textContent =
+      "Le PIN doit contenir exactement 4 chiffres.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  if (pin !== confirmPin) {
+
+    error.textContent =
+      "Les deux PIN ne correspondent pas.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  const pinHash =
+    await hashPin(pin);
+
+
+  user = {
+    name: name,
+    phone: phone,
+    pinHash: pinHash
+  };
+
+
+  balance = 250000;
+
+  transactions = [
+    {
+      type: "deposit",
+      name: "Dépôt initial",
+      amount: 250000,
+      date: "Aujourd'hui"
+    }
+  ];
+
+
+  saveData();
+
+  showApp();
+
+  showToast(
+    "Compte KongoPay créé avec succès"
+  );
+}
+
+
+/* =========================
+   CONNEXION
+========================= */
+
+async function login() {
+
+  const phone =
+    document
+      .getElementById("loginPhone")
+      .value.trim();
+
+  const pin =
+    document
+      .getElementById("loginPin")
+      .value.trim();
+
+  const error =
+    document.getElementById("loginError");
+
+
+  error.style.display = "none";
+
+
+  if (phone !== user.phone) {
+
+    error.textContent =
+      "Numéro de téléphone incorrect.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  if (!/^\d{4}$/.test(pin)) {
+
+    error.textContent =
+      "Entre ton PIN à 4 chiffres.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  const pinHash =
+    await hashPin(pin);
+
+
+  if (pinHash !== user.pinHash) {
+
+    error.textContent =
+      "PIN incorrect.";
+
+    error.style.display = "block";
+
+    return;
+  }
+
+
+  showApp();
+
+  showToast("Connexion réussie");
+}
+
+
+/* =========================
+   APPLICATION
+========================= */
+
+function showApp() {
+
+  hideAllAuth();
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  updateInterface();
+
+  showPage("homePage");
+}
+
+
+/* =========================
+   INTERFACE
+========================= */
+
+function updateInterface() {
+
+  if (!user) return;
+
+
+  document.getElementById(
+    "userName"
+  ).textContent = user.name;
+
+
+  document.getElementById(
+    "walletPhone"
+  ).textContent = user.phone;
+
+
+  document.getElementById(
+    "profileName"
+  ).textContent = user.name;
+
+
+  document.getElementById(
+    "profilePhone"
+  ).textContent = user.phone;
+
+
+  document.getElementById(
+    "avatar"
+  ).textContent =
+    user.name.charAt(0).toUpperCase();
+
+
+  const formatted =
+    balance.toLocaleString("fr-FR");
+
+
+  document.getElementById(
+    "balance"
+  ).textContent = formatted;
+
+
+  document.getElementById(
+    "walletBalance"
+  ).textContent = formatted;
+
+
+  document.getElementById(
+    "sendBalance"
+  ).textContent = formatted;
+
+
+  renderTransactions();
+
+  renderHistory();
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+function showPage(pageId, element) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
       page.classList.remove("active");
     });
 
-    document.getElementById(pageId).classList.add("active");
+
+  document
+    .getElementById(pageId)
+    .classList.add("active");
 
 
-    const navItems = document.querySelectorAll(".nav-item");
-
-    navItems.forEach(function(item) {
-      item.classList.remove("active");
-    });
-
-
-    if (element) {
-      element.classList.add("active");
-    }
-  }
-
-
-  /* AFFICHER MESSAGE */
-  function showToast(message) {
-
-    const toast = document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(function() {
-      toast.classList.remove("show");
-    }, 2500);
-  }
-
-
-  /* METTRE À JOUR LE SOLDE */
-  function updateBalance() {
-
-    document.getElementById("balance").textContent =
-      balance.toLocaleString("fr-FR");
-
-    document.getElementById("walletBalance").textContent =
-      balance.toLocaleString("fr-FR");
-
-    document.getElementById("sendBalance").textContent =
-      balance.toLocaleString("fr-FR");
-  }
-
-
-  /* ENVOYER DE L'ARGENT */
-  function sendMoney() {
-
-    const recipient =
-      document.getElementById("recipient").value.trim();
-
-    const amount =
-      Number(document.getElementById("amount").value);
-
-    const message =
-      document.getElementById("message").value.trim();
-
-
-    if (!recipient) {
-      showToast("Entre le numéro du destinataire");
-      return;
-    }
-
-
-    if (!amount || amount <= 0) {
-      showToast("Entre un montant valide");
-      return;
-    }
-
-
-    if (amount > balance) {
-      showToast("Solde insuffisant");
-      return;
-    }
-
-
-    /* DÉDUCTION DU SOLDE */
-    balance -= amount;
-
-    updateBalance();
-
-
-    /* CRÉER LA TRANSACTION */
-    const transaction = document.createElement("div");
-
-    transaction.className = "card";
-
-    transaction.innerHTML = `
-
-      <div class="transaction">
-
-        <div class="transaction-left">
-
-          <div class="transaction-icon">
-            📤
-          </div>
-
-          <div>
-
-            <div class="transaction-name">
-              Transfert vers ${recipient}
-            </div>
-
-            <div class="transaction-date">
-              À l'instant
-              ${message ? " • " + message : ""}
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="amount negative">
-          -${amount.toLocaleString("fr-FR")} CDF
-        </div>
-
-      </div>
-
-    `;
-
-
-    /* AJOUTER DANS HISTORIQUE */
-    document
-      .getElementById("historyList")
-      .prepend(transaction);
-
-
-    /* AJOUTER SUR ACCUEIL */
-    document
-      .getElementById("transactions")
-      .prepend(transaction.cloneNode(true));
-
-
-    /* VIDER LE FORMULAIRE */
-    document.getElementById("recipient").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("message").value = "";
-
-
-    showToast(
-      "Transfert de " +
-      amount.toLocaleString("fr-FR") +
-      " CDF effectué avec succès"
-    );
-
-
-    /* RETOUR ACCUEIL */
-    setTimeout(function() {
-      showPage("homePage");
-    }, 1500);
-
-  }
-
-
-  /* INITIALISATION */
-  updateBalance();
-
-</script>
-
-</body>
-</html> 
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(item => {
+      item.classList.remove("
